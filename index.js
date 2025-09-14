@@ -1,3 +1,52 @@
+  (function () {
+    const btn = document.getElementById('navToggle');
+    const nav = document.getElementById('siteNav');
+    const list = document.getElementById('navList');
+
+    if (!btn || !nav || !list) return;
+
+    // Open/close
+    function openNav() {
+      nav.hidden = false;
+      nav.dataset.anim = 'in';
+      btn.setAttribute('aria-expanded', 'true');
+      // focus first link for accessibility
+      const first = list.querySelector('a,button');
+      if (first) first.focus({ preventScroll: true });
+      document.addEventListener('click', onDocClick);
+      document.addEventListener('keydown', onKeyDown);
+    }
+    function closeNav() {
+      nav.dataset.anim = 'out';
+      btn.setAttribute('aria-expanded', 'false');
+      // small delay to allow fade (if motion allowed)
+      setTimeout(() => { nav.hidden = true; }, 120);
+      document.removeEventListener('click', onDocClick);
+      document.removeEventListener('keydown', onKeyDown);
+    }
+    function toggleNav() {
+      if (nav.hidden) openNav(); else closeNav();
+    }
+
+    // Close when clicking outside
+    function onDocClick(e) {
+      if (!nav.contains(e.target) && e.target !== btn) closeNav();
+    }
+    // Close on Escape or when a link is chosen
+    function onKeyDown(e) {
+      if (e.key === 'Escape') closeNav();
+    }
+    list.addEventListener('click', (e) => {
+      const target = e.target.closest('a,button');
+      if (target && target.tagName === 'A') {
+        // For single-page anchors, close after navigating
+        closeNav();
+      }
+    });
+
+    btn.addEventListener('click', toggleNav);
+  })();
+
 // Scroll-to-top & scroll restoration
 (function(){
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -450,3 +499,9 @@ if (langEl){
     }
   };
 })();
+
+
+
+
+
+
