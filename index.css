@@ -462,3 +462,24 @@ body.menu-open{ overflow: hidden; }
     z-index: 80; /* above any overlays */
   }
 }
+
+
+
+
+
+/* === Make the logo name a bit bigger (desktop + mobile) === */
+@media (min-width: 769px){
+  .brand-name{
+    font-size: 1.6rem;   /* desktop bump */
+    line-height: 1.1;
+  }
+}
+@media (max-width: 768px){
+  .brand-name{
+    font-size: 1.35rem;  /* mobile bump */
+    line-height: 1.1;
+    white-space: nowrap; /* keep "Osama Barakat" on one line on phones */
+  }
+}
+@media (min-width: 769px){ .brand-spark{ width: 136px; height: 26px; } }
+@media (max-width: 768px){ .brand-spark{ width: 128px; height: 25px; } }
