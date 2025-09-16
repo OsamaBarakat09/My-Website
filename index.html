@@ -78,6 +78,39 @@
           <button class="btn ghost theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
         </div>
       </nav>
+      
+<!-- REPLACE the old button+panel with this refined, magical mobile menu -->
+<button class="nav-toggle magic" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+
+<div id="mobileMenu" class="mobile-menu magic-panel" hidden>
+  <nav aria-label="Mobile">
+    <ul class="mobile-list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="mobile-icons">
+      <a href="mailto:Osamabarakat021@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+      </a>
+      <a href="https://github.com/OsamaBarakat09" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74 1.22.09 1.87 1.25 1.87 1.25 1.08 1.85 2.82 1.31 3.51 1 .11-.79.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/osama-barakat-9b1b511b8/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5H4.5V23H.5zM8.5 8.5H12v2h.05c.49-.93 1.69-1.9 3.48-1.9 3.72 0 4.41 2.45 4.41 5.64V23h-4V15.5c0-1.79-.03-4.09-2.5-4.09-2.5 0-2.88 1.95-2.88 3.96V23h-4z"/></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+<!-- Backdrop for dimming the page when the menu is open -->
+<div id="menuBackdrop" class="menu-backdrop" hidden></div>
+
+
     </div>
 
     <main id="main" tabindex="-1">
@@ -92,7 +125,7 @@
           <div class="actions">
             <div class="btn-group" role="group" aria-label="Download CV">
               <a class="btn primary" href="Osama-Barakat-EN.pdf" target="_blank" rel="noopener">Download CV (EN)</a>
-              <a class="btn" href="Osama-Barakat-IT.pdf" target="_blank" rel="noopener">Scarica CV (IT)</a>
+              <a class="btn primary" href="Osama-Barakat-IT.pdf" target="_blank" rel="noopener">Scarica CV (IT)</a>
             </div>
             <a class="btn" href="https://calendly.com/osamabarakat021/30min" target="_blank" rel="noopener">Book a 30-min call</a>
             <a class="btn" href="mailto:Osamabarakat021@gmail.com">Email Me</a>
