@@ -446,3 +446,19 @@ body.menu-open{ overflow: hidden; }
   .nav > ul,
   .nav .nav-icons{ display: none !important; }
 }
+
+
+
+
+/* === Mobile: pin the menu button to the RIGHT and keep it clickable === */
+@media (max-width: 768px){
+  .nav{ position: relative !important; }
+  .nav-toggle.magic{
+    position: absolute !important;
+    right: max(12px, env(safe-area-inset-right));
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex !important;
+    z-index: 80; /* above any overlays */
+  }
+}
