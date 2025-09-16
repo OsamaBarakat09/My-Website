@@ -530,3 +530,52 @@ const darkStreets = L.tileLayer(
 
 
 
+// ========== Contact form → mailto (no server) ==========
+(function(){
+  const form = document.getElementById('contactForm');
+  const statusBox = document.getElementById('formStatus'); // optional
+  const submitBtn = document.getElementById('cf-submit');  // optional
+
+  if (!form) return;
+
+  function showStatus(ok, msg){
+    if (!statusBox) return;
+    statusBox.textContent = msg;
+    statusBox.className = 'form-status show ' + (ok ? 'ok' : 'err');
+  }
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    const name    = (document.getElementById('cf-name')    || {}).value?.trim() || '';
+    const email   = (document.getElementById('cf-email')   || {}).value?.trim() || '';
+    const subject = (document.getElementById('cf-subject') || {}).value?.trim() || 'Portfolio contact';
+    const message = (document.getElementById('cf-message') || {}).value?.trim() || '';
+
+    if (!name || !email || !message){
+      showStatus(false, 'Please fill in name, email, and message.');
+      return;
+    }
+
+    const to = 'Osamabarakat021@gmail.com';
+    const body =
+`Name: ${name}
+Email: ${email}
+
+${message}`;
+
+    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Visual feedback (optional)
+    if (submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Opening email…'; }
+
+    // Open the user's email app with a prefilled draft
+    window.location.href = mailto;
+
+    // Restore button text after a moment (in case mail app doesn’t take focus)
+    setTimeout(()=>{
+      if (submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'Send Message'; }
+      showStatus(true, 'If your email app didn’t open, please email me at ' + to);
+    }, 1200);
+  });
+})();
