@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Osama Barakat — Data Scientist</title>
+    <meta name="description" content="Portfolio website of Osama Barakat — Data Scientist specializing in NLP, time-series forecasting, and geospatial analytics." />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- Fonts & vendor CSS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- JSON-LD Schema (SEO) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Osama Barakat",
+        "jobTitle": "Data Scientist",
+        "url": "https://your-domain.com/",
+        "sameAs": [
+          "https://www.linkedin.com/in/osama-barakat-9b1b511b8/",
+          "https://github.com/OsamaBarakat09"
+        ],
+        "email": "mailto:Osamabarakat021@gmail.com"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- NAVBAR -->
+    <div class="nav-wrap">
+      <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+      <nav class="nav container" aria-label="Main">
+        <div class="brand">
+          <span class="brand-name">Osama Barakat</span>
+          <svg class="brand-spark" viewBox="0 0 120 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="var(--brand)" />
+                <stop offset="100%" stop-color="var(--brand-2)" />
+              </linearGradient>
+              <path id="sparkPath" d="M0,18 12,12 24,14 36,6 48,10 60,4 72,9 84,7 96,12 108,8 120,14" />
+            </defs>
+            <use href="#sparkPath" stroke="url(#sparkGrad)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spark-line"></use>
+            <circle r="2.5" fill="url(#sparkGrad)">
+              <animateMotion dur="3.6s" repeatCount="indefinite">
+                <mpath href="#sparkPath" />
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-icons">
+          <a href="mailto:Osamabarakat021@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 6h16v12H4z" />
+              <path d="M22 6l-10 7L2 6" />
+            </svg>
+          </a>
+          <a href="https://github.com/OsamaBarakat09" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74 1.22.09 1.87 1.25 1.87 1.25 1.08 1.85 2.82 1.31 3.51 1 .11-.79.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5z" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/osama-barakat-9b1b511b8/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5H4.5V23H.5zM8.5 8.5H12v2h.05c.49-.93 1.69-1.9 3.48-1.9 3.72 0 4.41 2.45 4.41 5.64V23h-4V15.5c0-1.79-.03-4.09-2.5-4.09-2.5 0-2.88 1.95-2.88 3.96V23h-4z" />
+            </svg>
+          </a>
+          <button class="btn ghost theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+        </div>
+
+        <!-- Mobile menu button (inside nav) -->
+        <button class="nav-toggle magic" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <!-- Mobile menu panel -->
+      <div id="mobileMenu" class="mobile-menu magic-panel" hidden>
+        <nav aria-label="Mobile">
+          <ul class="mobile-list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#activities">Activities</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="mobile-icons">
+            <a href="mailto:Osamabarakat021@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M4 6h16v12H4z" />
+                <path d="M22 6l-10 7L2 6" />
+              </svg>
+            </a>
+            <a href="https://github.com/OsamaBarakat09" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74 1.22.09 1.87 1.25 1.87 1.25 1.08 1.85 2.82 1.31 3.51 1 .11-.79.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/osama-barakat-9b1b511b8/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5H4.5V23H.5zM8.5 8.5H12v2h.05c.49-.93 1.69-1.9 3.48-1.9 3.72 0 4.41 2.45 4.41 5.64V23h-4V15.5c0-1.79-.03-4.09-2.5-4.09-2.5 0-2.88 1.95-2.88 3.96V23h-4z" />
+              </svg>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Backdrop for dimming the page when the menu is open -->
+      <div id="menuBackdrop" class="menu-backdrop" hidden></div>
+    </div>
+
+    <main id="main" tabindex="-1">
+      <!-- HERO -->
+      <header class="container hero">
+        <div>
+          <h1 class="title">Data Scientist &amp; <span class="highlight">GeoAI</span> Solving Hard Problems Across Domains</h1>
+          <p class="eyebrow">Ready to help anywhere data matters</p>
+          <p class="subtitle" style="text-align: justify; text-justify: inter-word; hyphens: auto;">
+            I design and deploy production-grade ML systems—financial sentiment, risk analytics, and GeoAI—that turn messy data into reliable decisions. Clean pipelines, rigorous evaluation, and solid MLOps make the work explainable, maintainable, and business-ready.
+          </p>
+          <div class="actions">
+            <div class="btn-group" role="group" aria-label="Download CV">
+              <a class="btn primary" href="Osama-Barakat-EN.pdf" target="_blank" rel="noopener">Download CV (EN)</a>
+              <a class="btn primary" href="Osama-Barakat-IT.pdf" target="_blank" rel="noopener">Scarica CV (IT)</a>
+            </div>
+            <a class="btn" href="https://calendly.com/osamabarakat021/30min" target="_blank" rel="noopener">Book a 30-min call</a>
+            <a class="btn" href="mailto:Osamabarakat021@gmail.com">Email Me</a>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><strong>5+</strong><span class="muted">Deployed Models</span></div>
+            <div class="kpi"><strong>20M+</strong><span class="muted">Tokens Analyzed</span></div>
+            <div class="kpi"><strong>99.9%</strong><span class="muted">Uptime Pipelines</span></div>
+            <div class="kpi"><strong>8</strong><span class="muted">Dashboards Shipped</span></div>
+          </div>
+        </div>
+        <div class="portrait">
+          <div class="photo" role="img" aria-label="Portrait placeholder"></div>
+          <div class="dots" aria-hidden="true"></div>
+        </div>
+      </header>
+
+      <!-- SNAPSHOT -->
+      <div class="container">
+        <section class="snapshot" aria-label="Profile snapshot">
+          <div class="snapshot-grid">
+            <div class="snap-item">
+              <div class="label">Location</div>
+              <div class="value">Milan, Italy</div>
+            </div>
+            <div class="snap-item">
+              <div class="label">Work authorization</div>
+              <div class="value">Italy — can transition to employer-sponsored authorization promptly</div>
+            </div>
+            <div class="snap-item">
+              <div class="label">Languages (CEFR)</div>
+              <ul class="lang-list">
+                <li>Arabic (Native)</li>
+                <li>English (C1)</li>
+                <li>Italian (B2)</li>
+                <li>German (A2)</li>
+              </ul>
+            </div>
+            <div class="snap-item">
+              <div class="label">Availability</div>
+              <div class="value">Available now — start date flexible</div>
+            </div>
+            <div class="snap-item">
+              <div class="label">Domains</div>
+              <div class="value">Finance • Mobility • Urban data • Marketing • Sales • GeoAI</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- WHAT I DO -->
+      <section id="what-i-do" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 14px 0">What I do</h2>
+          <div class="whatido-grid">
+            <article class="panel reveal tilt">
+              <div class="icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z" /><path d="M4 8h16M8 4v16M12 12l2 2 4-4" /></svg>
+              </div>
+              <h3 style="margin:6px 0 8px 0">Financial NLP</h3>
+              <p class="muted" style="margin:0">Sentiment → trading signals: clean news/social pipelines, FinBERT/Transformers, feature stores, backtests & dashboards; ship signals via API for quant/risk workflows.</p>
+            </article>
+
+            <article class="panel reveal tilt">
+              <div class="icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 4v16M21 4v16" /><path d="M6 15l4-6 3 4 4-7" /></svg>
+              </div>
+              <h3 style="margin:6px 0 8px 0">Forecasting</h3>
+              <p class="muted" style="margin:0">Time-series for demand/risk: ARIMA/Prophet/XGBoost, cross-validation, anomaly alerts, monitored deployments that cut time-to-insight and improve stability.</p>
+            </article>
+
+            <article class="panel reveal tilt">
+              <div class="icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z" /><path d="M9 9h6v6H9z" /></svg>
+              </div>
+              <h3 style="margin:6px 0 8px 0">Geo-analytics</h3>
+              <p class="muted" style="margin:0">Spatial pipelines & interactive maps: GeoPandas/PostGIS/Leaflet, spatial joins & tiling, heatmaps and routing layers that turn location data into decisions.</p>
+            </article>
+
+            <article class="panel reveal tilt">
+              <div class="icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="live" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="dash" d="M3 11l8-4v10l-8-4z" />
+                  <path class="dash" d="M14 10h7M14 14h5" />
+                  <circle class="pulse" cx="6" cy="11" r="1.6" />
+                </svg>
+              </div>
+              <h3 style="margin:6px 0 8px 0">Marketing Analytics</h3>
+              <p class="muted" style="margin:0">Attribution & MMM, funnel diagnostics, and experimentation to lift ROAS and conversion.</p>
+            </article>
+
+            <article class="panel reveal tilt">
+              <div class="icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="live" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="dash" d="M3 20h18" />
+                  <path class="dash" d="M7 20v-6M12 20v-10M17 20v-4" />
+                  <circle class="pulse" cx="12" cy="6" r="1.6" />
+                </svg>
+              </div>
+              <h3 style="margin:6px 0 8px 0">Sales Analytics</h3>
+              <p class="muted" style="margin:0">Pipeline & revenue forecasting, scoring, and territory insights that accelerate growth.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="container">
+          <h2 class="about-hero">About <span class="spark">Me</span></h2>
+          <div class="about-cards">
+            <article class="panel reveal">
+              <h3 style="margin-top:0">Who I Am</h3>
+              <p class="about-lead">
+                Data Scientist & Quantitative Analyst with <strong>2 years</strong> of hands-on technical experience in data science,
+                machine learning, and advanced analytics, complemented by <strong>5 years</strong> in business-oriented roles across
+                Marketing, Sales, and Finance. I bridge the gap between <strong>data-driven insights</strong> and <strong>strategic decisions</strong>,
+                translating complex analysis into clear, actionable recommendations for stakeholders.
+              </p>
+              <div class="about-flair">
+                <span class="chip">Stakeholder-Friendly</span>
+                <span class="chip">Impact-First</span>
+                <span class="chip">Explainable ML</span>
+              </div>
+            </article>
+
+            <article class="panel reveal">
+              <h3 style="margin-top:0">End-to-End Analytics & BI</h3>
+              <p class="about-lead">
+                Proven track record designing and delivering analytics projects—from data collection & preprocessing to
+                statistical modeling, machine learning, and visualization. I analyze KPIs, surface trends, and uncover
+                optimization opportunities that drive growth, then communicate findings through <strong>compelling storytelling</strong>
+                and decision frameworks leaders can trust.
+              </p>
+              <div class="about-flair">
+                <span class="chip">Pipelines</span><span class="chip">Dashboards</span><span class="chip">A/B Testing</span>
+              </div>
+            </article>
+
+            <article class="panel reveal">
+              <h3 style="margin-top:0">NLP & Text Analytics Specialist</h3>
+              <p class="about-lead">
+                I turn unstructured text into strategic intelligence: <em>sentiment analysis</em>, <em>topic modeling</em>, <em>NER</em>,
+                and <em>summarization</em>. This enables value creation from customer feedback, social streams, and reports—powering
+                better product decisions, marketing strategy, and risk sensing.
+              </p>
+              <div class="about-flair">
+                <span class="chip">FinBERT</span><span class="chip">Transformers</span><span class="chip">Hugging Face</span>
+              </div>
+            </article>
+
+            <article class="panel reveal">
+              <h3 style="margin-top:0">Time Series & Predictive Modeling</h3>
+              <p class="about-lead">
+                From trend detection and seasonal decomposition to forecasting with statistical and ML approaches, I build
+                adaptive models for dynamic datasets—improving decision-making across finance, sales, and operations with
+                <strong>reliable forecasts</strong> and robust evaluation.
+              </p>
+              <div class="about-flair">
+                <span class="chip">ARIMA</span><span class="chip">Prophet</span><span class="chip">XGBoost</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="about-cta">
+            <a class="btn primary" href="Osama-Barakat-EN.pdf" target="_blank" rel="noopener">Download CV (EN)</a>
+            <a class="btn primary" href="Osama-Barakat-IT.pdf" target="_blank" rel="noopener">Scarica CV (IT)</a>
+            <a class="btn" href="https://calendly.com/osamabarakat021/30min" target="_blank" rel="noopener">Book a 30-min call</a>
+            <a class="btn" href="#contact">Work with me</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section">
+        <div class="container">
+          <div style="display:flex; align-items:end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px">
+            <h2 style="margin:0">Selected Projects</h2>
+            <span class="badge">Open-source & case studies</span>
+          </div>
+          <div class="grid cards" id="projectsGrid"></div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Skills</h2>
+          <div class="grid skills" id="skillsGrid"></div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Experience</h2>
+          <div class="timeline" id="expTimeline"></div>
+        </div>
+      </section>
+
+      <!-- ACTIVITIES -->
+      <section id="activities" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Campus & Professional Programs</h2>
+          <div class="grid" id="activitiesGrid"></div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section id="certifications" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Certifications</h2>
+          <div class="certs" id="certsBox"></div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section id="education" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Education</h2>
+          <div class="grid" id="eduGrid"></div>
+        </div>
+      </section>
+
+      <!-- LANGUAGES -->
+      <section id="languages" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Languages</h2>
+          <div class="grid" id="langGrid"></div>
+        </div>
+      </section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Left: quick actions -->
+      <div class="contact-cards">
+        <h2 class="contact-title">Let’s collaborate</h2>
+        <p class="subtitle contact-sub">
+          Interested in data products, forecasting, or geo-analytics? Send a note — I usually reply within 24 hours.
+        </p>
+
+        <a class="contact-card" href="mailto:Osamabarakat021@gmail.com">
+          <div class="cc-icon" aria-hidden="true">📧</div>
+          <div class="cc-body">
+            <strong>Email</strong>
+            <span>Osamabarakat021@gmail.com</span>
+          </div>
+          <button class="cc-aux copy-email" type="button" data-email="Osamabarakat021@gmail.com" aria-label="Copy email">Copy</button>
+        </a>
+
+        <a class="contact-card" href="https://www.linkedin.com/in/osama-barakat-9b1b511b8/" target="_blank" rel="noopener">
+          <div class="cc-icon" aria-hidden="true">🔗</div>
+          <div class="cc-body">
+            <strong>LinkedIn</strong>
+            <span>Connect & message</span>
+          </div>
+          <span class="cc-aux">Open</span>
+        </a>
+
+        <a class="contact-card" href="https://github.com/OsamaBarakat09" target="_blank" rel="noopener">
+          <div class="cc-icon" aria-hidden="true">💻</div>
+          <div class="cc-body">
+            <strong>GitHub</strong>
+            <span>Projects & code</span>
+          </div>
+          <span class="cc-aux">Open</span>
+        </a>
+
+        <a class="contact-card" href="https://calendly.com/osamabarakat021/30min" target="_blank" rel="noopener">
+          <div class="cc-icon" aria-hidden="true">📅</div>
+          <div class="cc-body">
+            <strong>Book a 30-min call</strong>
+            <span>Calendly</span>
+          </div>
+          <span class="cc-aux">Book</span>
+        </a>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-form panel">
+        <h3 class="cf-title">Send a message</h3>
+
+        <!-- Status (JS updates this) -->
+        <div id="formStatus" class="form-status" aria-live="polite"></div>
+
+        <form id="contactForm" action="https://formspree.io/f/your-id" method="POST" novalidate>
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="field">
+            <input id="cf-name" name="name" type="text" required />
+            <label for="cf-name">Your name</label>
+          </div>
+
+          <div class="field">
+            <input id="cf-email" name="email" type="email" inputmode="email" required />
+            <label for="cf-email">Email</label>
+          </div>
+
+          <div class="field">
+            <input id="cf-subject" name="subject" type="text" />
+            <label for="cf-subject">Subject (optional)</label>
+          </div>
+
+          <div class="field full">
+            <textarea id="cf-message" name="message" rows="6" required></textarea>
+            <label for="cf-message">Message</label>
+          </div>
+
+          <input type="hidden" name="_subject" value="Portfolio message — OsamaBarakat.com" />
+          <div class="cf-actions">
+            <button id="cf-submit" class="btn primary" type="submit">Send Message</button>
+            <span class="cf-hint">I usually reply within 24h.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      <!-- LOCATIONS / MAP -->
+      <section id="locations" class="section">
+        <div class="container">
+          <h2 style="margin:0 0 18px 0">Where I Work From</h2>
+          <p class="subtitle">Milan · Cairo · Mansoura</p>
+          <div id="map" aria-label="Map with markers for Milan, Cairo, and Mansoura"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
+        <small>© <span id="year"></span> Osama Barakat. All rights reserved.</small>
+        <div style="display:flex; gap:10px">
+          <a class="badge" href="/sitemap.xml">Sitemap</a>
+          <a class="badge" href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp -->
+    <a class="whatsapp" href="https://wa.me/201014198841" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M19.11 17.4c-.29-.15-1.7-.84-1.96-.93-.26-.09-.45-.14-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.09-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.56-.47-.49-.64-.5l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.44s1.02 2.83 1.16 3.03c.14.19 2 3.05 4.85 4.28.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.11.55-.08 1.7-.7 1.94-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34z" />
+        <path d="M26.73 5.27A13.5 13.5 0 1 0 5.27 26.73L3 29l2.56-.75A13.46 13.46 0 0 0 16 29.5c7.46 0 13.5-6.04 13.5-13.5S23.46 2.5 16 2.5 2.5 8.54 2.5 16c0 2.71.74 5.24 2.03 7.41l-.53 3.09 3.18-.52A13.46 13.46 0 0 0 16 29.5c7.46 0 13.5-6.04 13.5-13.5 0-3.61-1.41-6.95-3.77-9.23z" />
+      </svg>
+      WhatsApp
+    </a>
+
+    <!-- Vendor JS (Leaflet) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Site JS -->
+    <script src="index.js"></script>
+  </body>
+</html>
