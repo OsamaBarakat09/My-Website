@@ -279,3 +279,28 @@ a:focus-visible, .btn:focus-visible, .badge:focus-visible, .chip:focus-visible,
     margin-inline: auto;                 /* center inside container */
   }
 }
+
+/* Mobile-only: show JUST the logo in the navbar */
+@media (max-width: 768px){
+  /* Hide nav links and right-side icons on phones */
+  .nav > ul,
+  .nav .nav-icons { 
+    display: none !important;
+  }
+
+  /* Center the brand block (logo text + spark) */
+  .nav{
+    justify-content: center !important;  /* overrides desktop space-between */
+  }
+  .brand{
+    justify-content: center;
+  }
+  .brand-name{
+    white-space: nowrap;                  /* keep "Osama Barakat" on one line */
+  }
+
+  /* (Optional) shrink spark a touch on very small screens */
+  @media (max-width: 380px){
+    .brand-spark{ width: 96px; height: 20px; }
+  }
+}
