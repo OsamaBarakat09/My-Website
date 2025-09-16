@@ -498,30 +498,44 @@ if (langEl){
 
 
 
-// Backdrop controller for mobile menu
-(function(){
-  const panel = document.getElementById('mobileMenu');
-  const backdrop = document.getElementById('menuBackdrop');
-  if (!panel || !backdrop) return;
+// === Mobile menu toggle ===
+(function () {
+  const toggle = document.querySelector('.nav-toggle.magic');
+  const panel  = document.getElementById('mobileMenu');
+  if (!toggle || !panel) return;
 
-  function syncBackdrop(){
-    const open = panel.getAttribute('aria-hidden') === 'false' && !panel.hidden;
-    backdrop.hidden = !open;
+  // baseline ARIA state
+  panel.setAttribute('aria-hidden', 'true');
+
+  function openMenu(){
+    toggle.setAttribute('aria-expanded', 'true');
+    panel.hidden = false;
+    panel.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open'); // lock background scroll
+    const first = panel.querySelector('a, button');
+    if (first) first.focus({ preventScroll: true });
   }
-  // Watch menu state changes (from your existing toggle code)
-  const mo = new MutationObserver(syncBackdrop);
-  mo.observe(panel, { attributes: true, attributeFilter: ['hidden', 'aria-hidden'] });
-  syncBackdrop();
+  function closeMenu(){
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+    setTimeout(()=>{ panel.hidden = true; }, 150); // allow CSS transition
+  }
 
-  // Tap backdrop to close the menu
-  backdrop.addEventListener('click', ()=>{
-    const toggle = document.querySelector('.nav-toggle.magic');
-    if (toggle && toggle.getAttribute('aria-expanded') === 'true') toggle.click();
-    else {
-      panel.setAttribute('aria-hidden','true');
-      panel.hidden = true;
-      document.body.classList.remove('menu-open');
-      syncBackdrop();
-    }
+  toggle.addEventListener('click', ()=>{
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    open ? closeMenu() : openMenu();
+  });
+
+  // Close after clicking any link in the panel
+  panel.addEventListener('click', (e)=>{
+    if (e.target.closest('a')) closeMenu();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeMenu();
   });
 })();
+
+
