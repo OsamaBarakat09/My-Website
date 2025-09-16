@@ -261,11 +261,11 @@ a:focus-visible, .btn:focus-visible, .badge:focus-visible, .chip:focus-visible,
 
 
 /* Hero: inset 3px from both sides on phones only */
-@media (max-width: 768px){
+@media (max-width: 900px){
   .hero{
     /* if you already set padding for hero on mobile,
        simply replace the middle value with 3px (see note below) */
-    padding-inline: 3px;       /* use 2px if you prefer: padding-inline: 2px; */
+    padding-inline: 5px;       /* use 2px if you prefer: padding-inline: 2px; */
     box-sizing: border-box;    /* ensures no overflow */
   }
 }
