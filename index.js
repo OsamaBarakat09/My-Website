@@ -403,18 +403,20 @@ if (langEl){
 
   const opts = { noWrap:true, detectRetina:true, maxZoom:19 };
 
-  const esriSat = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { ...opts, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community' }
-  );
-  const lightStreets = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
-  );
-  const darkStreets = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
-  );
+  // AFTER (valid)
+const esriSat = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  { ...opts, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community' }
+);
+const lightStreets = L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
+);
+const darkStreets = L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
+);
+
 
   const map = L.map('map', {
     zoomControl:true, scrollWheelZoom:true, attributionControl:true,
@@ -498,44 +500,33 @@ if (langEl){
 
 
 
-// === Mobile menu toggle ===
-(function () {
-  const toggle = document.querySelector('.nav-toggle.magic');
-  const panel  = document.getElementById('mobileMenu');
-  if (!toggle || !panel) return;
+// Backdrop controller for mobile menu
+(function(){
+  const panel = document.getElementById('mobileMenu');
+  const backdrop = document.getElementById('menuBackdrop');
+  if (!panel || !backdrop) return;
 
-  // baseline ARIA state
-  panel.setAttribute('aria-hidden', 'true');
-
-  function openMenu(){
-    toggle.setAttribute('aria-expanded', 'true');
-    panel.hidden = false;
-    panel.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('menu-open'); // lock background scroll
-    const first = panel.querySelector('a, button');
-    if (first) first.focus({ preventScroll: true });
+  function syncBackdrop(){
+    const open = panel.getAttribute('aria-hidden') === 'false' && !panel.hidden;
+    backdrop.hidden = !open;
   }
-  function closeMenu(){
-    toggle.setAttribute('aria-expanded', 'false');
-    panel.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('menu-open');
-    setTimeout(()=>{ panel.hidden = true; }, 150); // allow CSS transition
-  }
+  // Watch menu state changes (from your existing toggle code)
+  const mo = new MutationObserver(syncBackdrop);
+  mo.observe(panel, { attributes: true, attributeFilter: ['hidden', 'aria-hidden'] });
+  syncBackdrop();
 
-  toggle.addEventListener('click', ()=>{
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    open ? closeMenu() : openMenu();
-  });
-
-  // Close after clicking any link in the panel
-  panel.addEventListener('click', (e)=>{
-    if (e.target.closest('a')) closeMenu();
-  });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e)=>{
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeMenu();
+  // Tap backdrop to close the menu
+  backdrop.addEventListener('click', ()=>{
+    const toggle = document.querySelector('.nav-toggle.magic');
+    if (toggle && toggle.getAttribute('aria-expanded') === 'true') toggle.click();
+    else {
+      panel.setAttribute('aria-hidden','true');
+      panel.hidden = true;
+      document.body.classList.remove('menu-open');
+      syncBackdrop();
+    }
   });
 })();
+
 
 
