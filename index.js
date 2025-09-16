@@ -450,3 +450,78 @@ if (langEl){
     }
   };
 })();
+
+
+
+
+// Mobile magical menu toggle
+(function () {
+  const toggle = document.querySelector('.nav-toggle.magic');
+  const panel  = document.getElementById('mobileMenu');
+  if (!toggle || !panel) return;
+
+  panel.setAttribute('aria-hidden', 'true');
+
+  function openMenu(){
+    toggle.setAttribute('aria-expanded', 'true');
+    panel.hidden = false;
+    panel.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+    const first = panel.querySelector('a, button');
+    if (first) first.focus({ preventScroll: true });
+  }
+  function closeMenu(){
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+    setTimeout(()=>{ panel.hidden = true; }, 200);
+  }
+
+  toggle.addEventListener('click', ()=>{
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    open ? closeMenu() : openMenu();
+  });
+
+  panel.addEventListener('click', (e)=>{
+    if (e.target.closest('a')) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeMenu();
+  });
+
+  // Hard close when switching to desktop
+  const mq = window.matchMedia('(min-width: 769px)');
+  mq.addEventListener('change', e => { if (e.matches) closeMenu(); });
+})();
+
+
+
+
+// Backdrop controller for mobile menu
+(function(){
+  const panel = document.getElementById('mobileMenu');
+  const backdrop = document.getElementById('menuBackdrop');
+  if (!panel || !backdrop) return;
+
+  function syncBackdrop(){
+    const open = panel.getAttribute('aria-hidden') === 'false' && !panel.hidden;
+    backdrop.hidden = !open;
+  }
+  // Watch menu state changes (from your existing toggle code)
+  const mo = new MutationObserver(syncBackdrop);
+  mo.observe(panel, { attributes: true, attributeFilter: ['hidden', 'aria-hidden'] });
+  syncBackdrop();
+
+  // Tap backdrop to close the menu
+  backdrop.addEventListener('click', ()=>{
+    const toggle = document.querySelector('.nav-toggle.magic');
+    if (toggle && toggle.getAttribute('aria-expanded') === 'true') toggle.click();
+    else {
+      panel.setAttribute('aria-hidden','true');
+      panel.hidden = true;
+      document.body.classList.remove('menu-open');
+      syncBackdrop();
+    }
+  });
+})();
