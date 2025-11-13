@@ -262,7 +262,7 @@ a:focus-visible, .btn:focus-visible, .badge:focus-visible, .chip:focus-visible,
 /* Hero: inset 3px per side on phones */
 @media (max-width: 768px){
   header.container.hero{
-    width: calc(100% - 6px) !important; /* 3px per side */
+    width: calc(97% - 6px) !important; /* 3px per side */
     margin-inline: auto;                 /* center inside container */
   }
 }
@@ -654,3 +654,4 @@ form#contactForm .full{ grid-column: 1/-1; }
 .card .actions .btn:hover {
   background: var(--accent-hover, #0ea5e9);
 }
+
