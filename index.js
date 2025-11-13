@@ -32,29 +32,33 @@ const data = {
     whatsapp: 'https://wa.me/201014198841'
   },
   projects: [
-    {
+  {
       title: 'Forecasting stock market movement using sentiment analysis',
       blurb: 'Fine-tuned FinBERT + automated news/social pipelines to generate sentiment signals used in trading/risk models; supports backtests and integration into algorithmic strategies.',
       tags: ['FinBERT','Transformers','News API','Backtesting'],
-      image: 'finbert-signals.jpg'
+      image: 'finbert-signals.jpg',
+      link: 'https://github.com/OsamaBarakat09/Forecasting-Stock-Market-Movement-Using-Sentiment-Analysis'
     },
     {
       title: 'Identifying High-Value Customers for a Marketing Campaign',
       blurb: 'CLV/propensity modeling with logistic regression, random forests, and gradient boosting to prioritize offers and improve ROI with targeted segmentation.',
       tags: ['CLV','scikit-learn','XGBoost','Segmentation'],
-      image: 'clv-segmentation.jpg'
+      image: 'clv-segmentation.jpg',
+      link: 'https://github.com/OsamaBarakat09/Identifying-High-Value-Customers-for-a-Marketing-Campaign'
     },
     {
       title: 'Optimize ad-spend across multiple social media platforms',
       blurb: 'Bayesian optimization + time-series effects (fatigue/seasonality) to dynamically allocate budgets across platforms (FB/TikTok/YouTube), lifting ROAS and lowering CPA.',
       tags: ['Bayesian Opt','Prophet','Dashboards'],
-      image: 'budget-optimizer.jpg'
+      image: 'budget-optimizer.jpg',
+      link: 'https://github.com/OsamaBarakat09/Optimize-ad-spend-across-multiple-social-media-platforms'
     },
     {
       title: 'High Viewership with low conversion Rates',
       blurb: 'Funnel analytics to locate drop-offs, run A/B tests, refine CTAs, and orchestrate cross-platform journeys to convert traffic into qualified leads.',
       tags: ['A/B Testing','Attribution','Power BI'],
-      image: 'funnel-abtest.jpg'
+      image: 'funnel-abtest.jpg',
+      link: 'https://github.com/OsamaBarakat09/High-Viewership-with-low-conversion-Rates'
     }
   ],
 
@@ -175,6 +179,33 @@ if (projEl) {
         }
       </figure>
     `;
+
+    // Build optional actions (repo/demo)
+    const actions = [];
+    if (p.repo)
+      actions.push(`<a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="btn">GitHub</a>`);
+    if (p.demo)
+      actions.push(`<a href="${p.demo}" target="_blank" rel="noopener noreferrer" class="btn">Live Demo</a>`);
+    if (p.link && actions.length === 0)
+      actions.push(`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn">View Project</a>`);
+
+    card.innerHTML = `
+      ${figure}
+      <div class="body">
+        ${
+          p.link
+            ? `<h3><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></h3>`
+            : `<h3>${p.title}</h3>`
+        }
+        <p>${p.blurb}</p>
+        <div class="meta">${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
+        ${actions.length ? `<div class="actions">${actions.join('')}</div>` : ''}
+      </div>
+    `;
+
+    projEl.appendChild(card);
+  });
+}
 
     // Build optional actions (repo/demo)
     const actions = [];
@@ -606,3 +637,4 @@ ${message}`;
     }, 1200);
   });
 })();
+
