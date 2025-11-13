@@ -156,22 +156,49 @@ const data = {
 };
 
 // ================== RENDERERS ==================
-// Projects
+// === Projects ===
 const projEl = document.getElementById('projectsGrid');
-if (projEl){
-  data.projects.forEach(p=>{
+if (projEl) {
+  data.projects.forEach(p => {
     const card = document.createElement('article');
     card.className = 'card';
-    card.innerHTML = `
+
+    // Create main image (wrapped if there's a main link)
+    const figure = `
       <figure class="media">
-        ${p.image ? `<img src="${p.image}" alt="Project thumbnail: ${p.title}" loading="lazy" decoding="async">` : ``}
+        ${
+          p.link
+            ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">
+                 <img src="${p.image}" alt="Project thumbnail: ${p.title}" loading="lazy" decoding="async">
+               </a>`
+            : `<img src="${p.image}" alt="Project thumbnail: ${p.title}" loading="lazy" decoding="async">`
+        }
       </figure>
+    `;
+
+    // Build optional actions (repo/demo)
+    const actions = [];
+    if (p.repo)
+      actions.push(`<a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="btn">GitHub</a>`);
+    if (p.demo)
+      actions.push(`<a href="${p.demo}" target="_blank" rel="noopener noreferrer" class="btn">Live Demo</a>`);
+    if (p.link && actions.length === 0)
+      actions.push(`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn">View Project</a>`);
+
+    card.innerHTML = `
+      ${figure}
       <div class="body">
-        <h3>${p.title}</h3>
+        ${
+          p.link
+            ? `<h3><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></h3>`
+            : `<h3>${p.title}</h3>`
+        }
         <p>${p.blurb}</p>
-        <div class="meta">${p.tags.map(t=>`<span class='chip'>${t}</span>`).join('')}</div>
-        <div class="actions"></div>
-      </div>`;
+        <div class="meta">${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
+        ${actions.length ? `<div class="actions">${actions.join('')}</div>` : ''}
+      </div>
+    `;
+
     projEl.appendChild(card);
   });
 }
