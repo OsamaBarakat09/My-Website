@@ -64,6 +64,20 @@ const data = {
 
   experiences: [
     {
+      role: 'SEO specialist', company: 'Massar', location: 'Mansoura, Egypt', period: 'Feb 2026 – Present',
+      bullets: [
+        'Clean, preprocess, and analyze large multi-source datasets using Python (Pandas/NumPy) and SQL/NoSQL; deep EDA to uncover behavior patterns and campaign trends.',
+        'Build predictive models for financial forecasting, recommender systems, and LTV; leverage TensorFlow/PyTorch and AutoML to accelerate iteration.',
+        'Design and run A/B tests; ensure explainability with SHAP/LIME to align models with business goals.',
+        'Own the full ML lifecycle: feature pipelines → training → evaluation → API deployment; optimize on AWS/GCP.',
+        'Develop executive dashboards (Matplotlib/Seaborn/Power BI/Tableau) to democratize insights across teams.',
+        'Operate with MLOps best practices (MLflow/Kubeflow) for experiment tracking and robust deployment.',
+        'Apply LLMs for content optimization; prototype NLP/CV use cases that improve marketing efficiency.',
+        'Mentor peers, communicate model behavior to stakeholders, and enforce data integrity and model reliability.'
+      ]
+    },
+
+    {
       role: 'Data Scientist', company: 'X_Advertising', location: 'Mansoura, Egypt', period: 'Jan 2024 – Present',
       bullets: [
         'Clean, preprocess, and analyze large multi-source datasets using Python (Pandas/NumPy) and SQL/NoSQL; deep EDA to uncover behavior patterns and campaign trends.',
@@ -158,6 +172,48 @@ const data = {
     {name:'German', level:'Elementary proficiency'}
   ]
 };
+
+
+// ================== EXPERIENCE ==================
+
+const expEl = document.getElementById("expTimeline");
+
+if (expEl) {
+    data.experiences.forEach(exp => {
+
+        const article = document.createElement("article");
+        article.className = "role reveal";
+
+        article.innerHTML = `
+            <h3>
+                ${exp.role}
+            </h3>
+
+            <p class="meta">
+                <strong>${exp.company}</strong>
+                • ${exp.location}
+                • ${exp.period}
+            </p>
+
+            <ul>
+                ${exp.bullets
+                    .map(item => `<li>${item}</li>`)
+                    .join("")}
+            </ul>
+        `;
+
+        expEl.appendChild(article);
+    });
+
+    // Optional: Show More if many jobs
+    applyShowMoreToContainer(
+        "#expTimeline",
+        3,
+        "Show more experience",
+        "Show less"
+    );
+}
+
 
 // ================== RENDERERS ==================
 // === Projects ===
@@ -392,64 +448,6 @@ if (langEl){
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0.1 });
   sectionIds.forEach(id=>{ const sec = document.getElementById(id); if(sec) io.observe(sec); });
 })();
-
-// ================== MAP (Leaflet) ==================
-(function(){
-  const mapEl = document.getElementById('map');
-  if(!mapEl || typeof L === 'undefined') return;
-
-  const opts = { noWrap:true, detectRetina:true, maxZoom:19 };
-
-  // AFTER (valid)
-const esriSat = L.tileLayer(
-  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  { ...opts, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community' }
-);
-const lightStreets = L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
-);
-const darkStreets = L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  { ...opts, attribution: '© OpenStreetMap contributors · © CARTO' }
-);
-
-
-  const map = L.map('map', {
-    zoomControl:true, scrollWheelZoom:true, attributionControl:true,
-    worldCopyJump:true, maxBounds:[[-85,-180],[85,180]], maxBoundsViscosity:0.8
-  });
-
-  // Default base
-  let currentBase = esriSat.addTo(map);
-
-  // Markers
-  const points = [
-    {name:'Milan, Italy',     coords:[45.4642, 9.1900]},
-    {name:'Cairo, Egypt',     coords:[30.0444, 31.2357]},
-    {name:'Mansoura, Egypt',  coords:[31.0409, 31.3785]}
-  ];
-  const group = L.featureGroup(points.map(p => L.marker(p.coords).bindPopup(`<strong>${p.name}</strong>`))).addTo(map);
-  map.fitBounds(group.getBounds(), { padding:[40, 40] });
-
-  // Layer control
-  const baseMaps = { 'Satellite': esriSat, 'Streets (Light)': lightStreets, 'Streets (Dark)': darkStreets };
-  L.control.layers(baseMaps, {}, { position:'topright', collapsed:true }).addTo(map);
-  L.control.scale({imperial:false}).addTo(map);
-
-  // Theme-aware streets
-  window.applyThemeTiles = function(){
-    const theme = document.documentElement.getAttribute('data-theme') || 'light';
-    if (currentBase === lightStreets || currentBase === darkStreets){
-      const target = theme === 'light' ? lightStreets : darkStreets;
-      if (currentBase !== target){
-        map.removeLayer(currentBase);
-        currentBase = target.addTo(map);
-      }
-    }
-  };
-})();
-
 
 
 
