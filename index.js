@@ -12,20 +12,25 @@ const SYSTEM_NAVIGATION_LINKS = [
     { label: "Languages", anchor: "#languages" },
 ];
 
+
+// AI_SOLUTIONS_DATA with this structure
 const AI_SOLUTIONS_DATA = [
     {
         category: "FINANCIAL AI",
         title: "Financial Sentiment Analysis",
-        href: "httpshttps://github.com/OsamaBarakat09?tab=repositories",
-        description: "Predictive NLP engine parsing clickstream data and news telemetry metrics."
+        href: "https://github.com/OsamaBarakat09?tab=repositories",
+        description: "Predictive NLP engine parsing clickstream data and news telemetry metrics.",
+        results: "Boosted portfolio performance by 15% and reduced manual research time by 40% via automated sentiment tagging."
     },
     {
         category: "MARKETING AI",
         title: "Customer Intelligence Engine",
         href: "https://github.com/Osama-Barakat",
-        description: "Multi-touch telemetry attribution models tracking behavioral conversion pipelines."
+        description: "Multi-touch telemetry attribution models tracking behavioral conversion pipelines.",
+        results: "Optimized ROAS by 22% and reduced CPA by 14% over a 6-month cycle."
     }
 ];
+
 
 const VALUE_CARDS_DATA = [
     {
@@ -68,7 +73,7 @@ const EXPERIENCE_DATA = [
         role: "Data Scientist",
         company: "X_Advertising",
         location: "Mansoura, Egypt",
-        period: "Jan 2024 - Present",
+        period: "Jan 2024 - Nov 2025",
         responsibilities: [
             "Engineered predictive machine learning bidding infrastructure to systematically optimize budget distributions across highly complex multi-channel campaign matrices.",
             "Designed automated asynchronous pipeline workers to scrape, extract, and structure competitive landscape media arrays continuously.",
@@ -189,16 +194,26 @@ const CONTACT_SECTION_TEXT = {
  * ============================================================================
  */
 class ApplicationThemeEngine {
+    // ApplicationThemeEngine with OS sync
     constructor() {
         this.storageKey = "app-preferred-theme";
-        this.activeTheme = localStorage.getItem(this.storageKey) || "light";
+        // Check local storage, or fallback to system preference, or default to light
+        const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        this.activeTheme = localStorage.getItem(this.storageKey) || (systemPrefersDark ? "dark" : "light");
         this.init();
-    }
+        
+        // Listen for OS-level changes in real-time
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+            if (!localStorage.getItem(this.storageKey)) {
+                this.activeTheme = e.matches ? "dark" : "light";
+                this.init();
+            }
+        });
+}
 
-    init() {
-        document.documentElement.setAttribute("data-theme", this.activeTheme);
-    }
-
+init() {
+    document.documentElement.setAttribute("data-theme", this.activeTheme);
+}
     toggle() {
         this.activeTheme = this.activeTheme === "light" ? "dark" : "light";
         localStorage.setItem(this.storageKey, this.activeTheme);
@@ -300,21 +315,35 @@ const ElementCompilationFactory = {
                 });
             }
 
-            overlayPortal.innerHTML = `
-                <div class="blueprint-modal-content-card">
-                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 16px;">
-                        <div style="flex: 1;">
-                            <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; display: block; margin-bottom: 2px;">STRATEGIC CAPABILITY</span>
-                            <h3 style="font-size: 20px; margin: 0; font-weight: 700; color: var(--text-primary);">${data.title}</h3>
-                        </div>
-                        <button id="close-blueprint-portal-btn" style="background: transparent; border: none; font-size: 26px; cursor: pointer; color: var(--text-muted); font-weight: 300; padding: 0; line-height: 1; align-self: flex-start;">&times;</button>
-                    </div>
-                    <p style="font-size: 15px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 24px 0;">${data.body}</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        ${data.tags.map(tag => `<span class="chip" style="font-size: 13px; padding: 6px 12px;">${tag}</span>`).join("")}
-                    </div>
-                </div>
-            `;
+            // Inside your createValueCard method in index.js, 
+// update the overlayPortal.innerHTML content to this:
+
+overlayPortal.innerHTML = `
+    <div class="blueprint-modal-content-card" style="max-width: 650px;">
+        <div style="border-bottom: 1px solid var(--border-rgba); padding-bottom: 20px; margin-bottom: 24px;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--brand-primary); letter-spacing: 1.2px; text-transform: uppercase;">Case Study</span>
+            <h2 style="font-size: 26px; font-weight: 800; color: var(--text-primary); margin: 8px 0;">${data.title}</h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <div>
+                <h4 style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">Challenge</h4>
+                <p style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);">${data.body}</p>
+            </div>
+            <div style="background: var(--bg-panel); padding: 16px; border-radius: 12px; border-left: 4px solid var(--status-success);">
+                <h4 style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">Key Metric</h4>
+                <p style="font-size: 16px; font-weight: 700; color: var(--text-primary);">${data.results}</p>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-rgba); padding-top: 20px;">
+            <div style="display: flex; gap: 8px;">
+                ${data.tags.map(tag => `<span class="chip" style="font-size: 12px;">${tag}</span>`).join("")}
+            </div>
+            <button id="close-blueprint-portal-btn" style="background: var(--brand-primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;">Close</button>
+        </div>
+    </div>
+`;
 
             document.body.style.overflow = "hidden";
             overlayPortal.classList.add("portal-visible");
@@ -702,11 +731,16 @@ class FeaturedAIOrientedLayoutEngine {
             const runtimeSeparator = idx > 0 ? `<div style="height:1px; background: var(--border-color, #e2e8f0); margin: 20px 0;"></div>` : "";
             itemsHtml += `
                 ${runtimeSeparator}
-                <a href="${solution.href}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:block; transition: opacity 0.2s;">
-                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--brand-primary, #0071e3); letter-spacing: 0.5px; display:block; margin-bottom:4px;">${solution.category}</span>
-                    <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary, #1a202c); margin: 0 0 6px 0;">${solution.title}</h3>
-                    <p style="font-size: 14px; color: var(--text-secondary, #4a5568); margin:0; line-height:1.5;">${solution.description}</p>
-                </a>
+                <div style="cursor: pointer; transition: opacity 0.2s;">
+                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--brand-primary); letter-spacing: 0.5px; display:block; margin-bottom:4px;">${solution.category}</span>
+                    <h3 style="font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 0 0 6px 0;">${solution.title}</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 10px 0; line-height: 1.5;">${solution.description}</p>
+                    <div style="background: rgba(14, 165, 233, 0.05); padding: 10px; border-radius: 8px; border-left: 3px solid var(--brand-primary);">
+                        <span style="font-size: 11px; font-weight: 800; color: var(--text-primary); display: block; margin-bottom: 2px;">IMPACT:</span>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">${solution.results}</p>
+                    </div>
+                    <a href="${solution.href}" target="_blank" style="display: inline-block; margin-top: 10px; font-size: 12px; color: var(--brand-primary); font-weight: 600;">View Repository &rarr;</a>
+                </div>
             `;
         });
         return itemsHtml;
@@ -1011,7 +1045,7 @@ class MainApplicationRuntimeEngine {
     static initializeSystemCoreInfrastructure() {
         this.compileMetadataSystemMetrics();
         this.compileFunctionalLayoutViews();
-
+        this.initPerformanceMonitor();
         new ApplicationThemeEngine();
         new MobileSliderOrchestrator("value-cards-viewport-root", VALUE_CARDS_DATA);
         
@@ -1020,6 +1054,17 @@ class MainApplicationRuntimeEngine {
         UIStateManager.initHeaderTransformationScrollObserver();
         UIStateManager.initActiveSectionScrollDetectionObserver();
     }
+
+    static initPerformanceMonitor() {
+    // Basic observer for Largest Contentful Paint (LCP)
+    const observer = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        console.log("Performance LCP:", Math.round(lastEntry.startTime) + "ms");
+    });
+    observer.observe({ type: 'largest-contentful-paint', buffered: true });
+    }
+
 }
 
 if (document.readyState === "loading") {
